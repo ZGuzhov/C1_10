@@ -27,17 +27,18 @@ def read():
             continue      
         i = 1
         for task in task_data:      
-            print('\t', i, task['name'])  
+            print('\t', i, task['name'], 'id:' , task['id'])  
             i += 1
 
 def create(name, column_name):
     # Получим данные всех колонок на доске      
     column_data = requests.get(base_url.format('boards') + '/' + board_id + '/lists', params=auth_params).json()      
-      
+    
     # Переберём данные обо всех колонках, пока не найдём ту колонку, которая нам нужна      
     for column in column_data:      
         if column['name'] == column_name:      
-            # Создадим задачу с именем _name_ в найденной колонке      
+            # Создадим задачу с именем _name_ в найденной колонке
+            print('ok')
             requests.post(base_url.format('cards'), data={'name': name, 'idList': column['id'], **auth_params})      
             break
 
